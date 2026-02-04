@@ -13,10 +13,10 @@
     <string name="settings_icon_description">Configurações</string>
     <string name="points_to_win">Pontos para vencer</string>
     <string name="points_on_tap">Pontos ao clicar</string>
-    <string name="textview_home_team_description">Casa é %1$s</string>"
-    <string name="textview_guest_team_description">Fora é %1$s</string>"
-    <string name="textview_home_score">Home %1$s</string>"
-    <string name="textview_guest_score">Guest %1$s</string>"
+    <string name="textview_home_team_description">Casa é %1$s</string>
+    <string name="textview_guest_team_description">Fora é %1$s</string>
+    <string name="textview_home_score">Casa %1$s</string>
+    <string name="textview_guest_score">Fora %1$s</string>
     <string name="increase_value_button_description">Aumentar valor do %1$s</string>
     <string name="decrease_value_button_description">Diminuir valor do %1$s</string>
     <string name="touch_area_home_team_description">Placar Casa é %1$s. Adicionar pontos</string>

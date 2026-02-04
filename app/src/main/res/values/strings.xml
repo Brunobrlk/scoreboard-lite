@@ -14,10 +14,10 @@
     <string name="save_description">Save</string>
     <string name="points_to_win">Points to win</string>
     <string name="points_on_tap">Points on tap</string>
-    <string name="textview_home_team_description">Home is %1$s</string>"
-    <string name="textview_guest_team_description">Guest is %1$s</string>"
-    <string name="textview_home_score">Casa %1$s</string>"
-    <string name="textview_guest_score">Fora %1$s</string>"
+    <string name="textview_home_team_description">Home is %1$s</string>
+    <string name="textview_guest_team_description">Guest is %1$s</string>
+    <string name="textview_home_score">Home %1$s</string>
+    <string name="textview_guest_score">Guest %1$s</string>
     <string name="increase_value_button_description">Increase value of %1$s</string>
     <string name="decrease_value_button_description">Decrease value of %1$s</string>
     <string name="touch_area_home_team_description">Home Score is %1$s. Add points</string>
