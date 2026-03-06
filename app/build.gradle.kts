@@ -134,8 +134,13 @@ dependencies {
     androidTestImplementation(libs.androidx.core.testing)
 }
 
+secrets {
+    propertiesFileName = "secrets.properties"
+    defaultPropertiesFileName = "secrets.defaults.properties"
+}
+
 play {
-    serviceAccountCredentials.set(file("dev-service-account.json"))
+    serviceAccountCredentials.set(file("google-play-service-account.json"))
     defaultToAppBundles.set(true)
 
     // Circleci workspace integration
