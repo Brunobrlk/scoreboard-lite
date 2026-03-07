@@ -21,15 +21,15 @@ android {
         applicationId = "com.bgbrlk.scoreboardbrlk"
         minSdk = 26
         targetSdk = 35
-        versionName = "1.3.15"
-        versionCode = getVersionCode()
+        versionCode = project.property("VERSION_CODE").toString().toInt()
+        versionName = project.property("VERSION_NAME").toString()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         archivesName = getCustomVersionName()
     }
 
     signingConfigs {
         create("release") {
-            storeFile = file(project.property("RELEASE_STORE_FILE") as String)
+            storeFile = rootProject.file(project.property("RELEASE_STORE_FILE") as String)
             storePassword = project.property("RELEASE_STORE_PASSWORD") as String
             keyAlias = project.property("RELEASE_KEY_ALIAS") as String
             keyPassword = project.property("RELEASE_KEY_PASSWORD") as String
@@ -176,19 +176,6 @@ afterEvaluate {
     tasks.named("bundleRelease").configure {
         finalizedBy("zipSymbols")
     }
-}
-
-fun getVersionCode(): Int {
-    val versionName = android.defaultConfig.versionName ?: ""
-    val versionRegex = """^(\d+)\.(\d+)\.(\d+)""".toRegex()
-    val matchResult = versionRegex.find(versionName)
-    val (majorStr, minorStr, patchStr) = matchResult?.destructured ?: error("Invalid version format")
-
-    val patch = patchStr.toInt()
-    val minor = minorStr.toInt() * 1_000
-    val major = majorStr.toInt() * 1_000_000
-
-    return patch + minor + major
 }
 
 fun getCustomVersionName(): String {
