@@ -21,10 +21,10 @@ android {
         applicationId = "com.bgbrlk.scoreboardbrlk"
         minSdk = 26
         targetSdk = 35
-        versionCode = project.property("VERSION_CODE").toString().toInt()
-        versionName = project.property("VERSION_NAME").toString()
+        versionName = project.getTag()
+        versionCode = project.getVersionCode(versionName)
+        archivesName = getCustomVersionName(versionName, versionCode)
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        archivesName = getCustomVersionName()
     }
 
     signingConfigs {
@@ -176,13 +176,4 @@ afterEvaluate {
     tasks.named("bundleRelease").configure {
         finalizedBy("zipSymbols")
     }
-}
-
-fun getCustomVersionName(): String {
-    val appName = "scoreboard"
-    val versionName = android.defaultConfig.versionName
-    val versionCode = android.defaultConfig.versionCode
-    val date = SimpleDateFormat("yyyy-MM-dd").format(Date())
-
-    return "${appName}_${date}_v$versionName-$versionCode"
 }
