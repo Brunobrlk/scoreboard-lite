@@ -1,6 +1,4 @@
 import org.jetbrains.kotlin.gradle.plugin.mpp.pm20.util.archivesName
-import java.text.SimpleDateFormat
-import java.util.Date
 
 plugins {
     alias(libs.plugins.androidApplication)
@@ -21,8 +19,8 @@ android {
         applicationId = "com.bgbrlk.scoreboardbrlk"
         minSdk = 26
         targetSdk = 35
-        versionName = project.getTag()
-        versionCode = project.getVersionCode(versionName)
+        versionName = getTag()
+        versionCode = getVersionCode(versionName)
         archivesName = getCustomVersionName(versionName, versionCode)
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -132,6 +130,7 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(libs.androidx.core.testing)
+    androidTestImplementation(libs.screengrab)
 }
 
 secrets {
@@ -158,18 +157,12 @@ tasks.register<Zip>("zipSymbols") {
     group = "build"
     description = "Zips the merged native libs into symbols.zip."
 
-    val outDir =
-        file("${project.projectDir}/build/intermediates/merged_native_libs/release/mergeReleaseNativeLibs/out/lib")
-    val baseName = getCustomVersionName()
-    val symbolsZipName = "$baseName-symbols.zip"
-    val outputZip = file("${project.projectDir}/release/$symbolsZipName")
+    val outDir = layout.buildDirectory.dir("intermediates/merged_native_libs/release/mergeReleaseNativeLibs/out/lib")
 
-    destinationDirectory.set(outputZip.parentFile)
-    archiveFileName.set(outputZip.name)
+    destinationDirectory.set(layout.buildDirectory.dir("outputs/symbols"))
+    archiveFileName.set("symbols.zip")
 
-    from(outDir) {
-        include("**/*") // Include all files and directories under 'lib'
-    }
+    from(outDir)
 }
 
 afterEvaluate {
