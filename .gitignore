@@ -9,6 +9,7 @@ app/release
 # Secrets
 google-services.json
 google-play-service-account.json
+firebase-app-distribution-service-account.json
 local.properties
 secrets.properties
 *.base64

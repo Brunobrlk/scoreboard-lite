@@ -23,6 +23,7 @@ google-services = "4.4.2"
 crashlytics = "3.0.2"
 rules = "1.6.1"
 fragmentTesting = "1.8.6"
+screengrab = "2.1.1"
 
 [libraries]
 androidx-rules = { module = "androidx.test:rules", version.ref = "rules" }
@@ -49,6 +50,7 @@ firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
 firebase-perf = { module = "com.google.firebase:firebase-perf" }
 firebase-config = { module = "com.google.firebase:firebase-config" }
 androidx-fragment-testing = { group = "androidx.fragment", name = "fragment-testing-manifest", version.ref = "fragmentTesting" }
+screengrab = { module = "tools.fastlane:screengrab", version.ref = "screengrab" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

@@ -15,29 +15,133 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## Android
 
-### android test
+### android lint
 
 ```sh
-[bundle exec] fastlane android test
+[bundle exec] fastlane android lint
 ```
 
-Runs all the tests
+Run lint
 
-### android beta
+### android unit_tests
 
 ```sh
-[bundle exec] fastlane android beta
+[bundle exec] fastlane android unit_tests
 ```
 
-Submit a new Beta Build to Crashlytics Beta
+Run unit tests
 
-### android deploy
+### android integration_tests
 
 ```sh
-[bundle exec] fastlane android deploy
+[bundle exec] fastlane android integration_tests
 ```
 
-Deploy a new version to the Google Play
+Run integration tests
+
+### android build_debug_apk
+
+```sh
+[bundle exec] fastlane android build_debug_apk
+```
+
+Build debug APK
+
+### android build_release_apk
+
+```sh
+[bundle exec] fastlane android build_release_apk
+```
+
+Build release APK
+
+### android build_release_aab
+
+```sh
+[bundle exec] fastlane android build_release_aab
+```
+
+Build release AAB
+
+### android firebase_distribution
+
+```sh
+[bundle exec] fastlane android firebase_distribution
+```
+
+Distribute build to Firebase testers
+
+### android github_release
+
+```sh
+[bundle exec] fastlane android github_release
+```
+
+Create GitHub release
+
+### android screenshots
+
+```sh
+[bundle exec] fastlane android screenshots
+```
+
+
+
+### android play_store_internal
+
+```sh
+[bundle exec] fastlane android play_store_internal
+```
+
+Upload to Play Store - Internal
+
+### android promote_internal_to_alpha
+
+```sh
+[bundle exec] fastlane android promote_internal_to_alpha
+```
+
+
+
+### android promote_internal_to_beta
+
+```sh
+[bundle exec] fastlane android promote_internal_to_beta
+```
+
+
+
+### android promote_alpha_to_beta
+
+```sh
+[bundle exec] fastlane android promote_alpha_to_beta
+```
+
+
+
+### android promote_to_prod
+
+```sh
+[bundle exec] fastlane android promote_to_prod
+```
+
+
+
+### android promotion
+
+```sh
+[bundle exec] fastlane android promotion
+```
+
+
+
+### android chlog
+
+```sh
+[bundle exec] fastlane android chlog
+```
+
+
 
 ----
 

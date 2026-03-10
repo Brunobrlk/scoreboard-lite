@@ -1,38 +1,154 @@
-# This file contains the fastlane.tools configuration
-# You can find the documentation at https://docs.fastlane.tools
-#
-# For a list of all available actions, check out
-#
-#     https://docs.fastlane.tools/actions
-#
-# For a list of all available plugins, check out
-#
-#     https://docs.fastlane.tools/plugins/available-plugins
-#
-
-# Uncomment the line if you want fastlane to automatically update itself
-# update_fastlane
-
 default_platform(:android)
 
 platform :android do
-  desc 'Runs all the tests'
-  lane :test do
+  desc 'Run lint'
+  lane :lint do
+    gradle(task: 'lint')
+  end
+
+  desc 'Run unit tests'
+  lane :unit_tests do
     gradle(task: 'test')
   end
 
-  desc 'Submit a new Beta Build to Crashlytics Beta'
-  lane :beta do
-    gradle(task: 'clean assembleRelease')
-    crashlytics
-
-    # sh "your_script.sh"
-    # You can also use other beta testing services here
+  desc 'Run integration tests'
+  lane :integration_tests do
+    gradle(task: 'connectedAndroidTest')
   end
 
-  desc 'Deploy a new version to the Google Play'
-  lane :deploy do
-    gradle(task: 'clean assembleRelease')
-    upload_to_play_store
+  desc 'Build debug APK'
+  lane :build_debug_apk do
+    gradle(task: 'assembleDebug')
   end
+
+  desc 'Build release APK'
+  lane :build_release_apk do
+    gradle(task: 'assembleRelease')
+  end
+
+  desc 'Build release AAB'
+  lane :build_release_aab do
+    gradle(task: 'bundleRelease')
+  end
+
+  desc 'Distribute build to Firebase testers'
+  lane :firebase_distribution do |options|
+    apk_path = options[:apk] || lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
+    firebase_app_distribution(
+      service_credentials_file: 'firebase-app-distribution-service-account.json',
+      app: '1:377271658918:android:fd766968ef21a3d7d48767',
+      release_notes: sh('cd .. && git-cliff --latest').strip,
+      android_artifact_type: 'APK',
+      groups: 'private-accounts',
+      android_artifact_path: apk_path
+    )
+  end
+
+  desc 'Create GitHub release'
+  lane :github_release do |options|
+    apk_path = options[:apk] || lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
+    version_name = sh("git describe --tags --abbrev=0").strip
+    changelog = sh('cd .. && git-cliff --latest').strip
+    set_github_release(
+      api_token: ENV['GITHUB_TOKEN'],
+      repository_name: 'Brunobrlk/scoreboard-lite',
+      name: "Release #{version_name}",
+      tag_name: version_name,
+      description: changelog,
+      upload_assets: [apk_path]
+    )
+  end
+
+  lane :screenshots do |options|
+    gradle(task: 'clean')
+    build_android_app(
+      task: 'assemble',
+      build_type: 'Debug'
+    )
+    build_android_app(
+      task: 'assemble',
+      build_type: 'AndroidTest'
+    )
+
+    apk_path = options[:apk] || lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
+    test_apk_path = options[:test] || lane_context[SharedValues::GRADLE_ALL_APK_OUTPUT_PATHS]
+      .find { |p| p.include?('androidTest') }
+
+    screengrab(
+      locales: ['en-US', 'pt-BR'],
+      app_apk_path: apk_path,
+      tests_apk_path: test_apk_path
+    )
+  end
+
+  desc 'Upload to Play Store - Internal'
+  lane :play_store_internal do |options|
+    gradle(task: 'clean')
+    gradle(
+      task: 'bundle',
+      build_type: 'Release'
+    )
+
+    aab_path = options[:aab] || lane_context[SharedValues::GRADLE_AAB_OUTPUT_PATH]
+
+    chlog
+
+    upload_to_play_store(
+      track: 'internal',
+      aab: aab_path,
+      skip_upload_apk: true,
+      skip_upload_metadata: false,
+      skip_upload_changelogs: false,
+      skip_upload_images: false,
+      skip_upload_screenshots: false,
+      mapping_paths: [
+        'app/build/outputs/mapping/release/mapping.txt',
+        'app/build/outputs/symbols/symbols.zip'
+      ]
+    )
+  end
+
+  lane :chlog do
+    version = version_code_from_tag
+    base = 'fastlane/metadata/android'
+    sh("cd .. && git-cliff --latest > #{base}/en-US/changelogs/#{version}.txt")
+    sh("cd .. && trans -b -i #{base}/en-US/changelogs/#{version}.txt :pt > #{base}/pt-BR/changelogs/#{version}.txt")
+  end
+
+  lane :promote_internal_to_alpha do
+    promotion(track: 'internal', promo: 'alpha')
+  end
+
+  lane :promote_internal_to_beta do
+    promotion(track: 'internal', promo: 'beta')
+  end
+
+  lane :promote_alpha_to_beta do
+    promotion(track: 'alpha', promo: 'beta')
+  end
+
+  lane :promote_to_prod do
+    promotion(track: 'beta', promo: 'production')
+  end
+
+  lane :promotion do |options|
+    upload_to_play_store(
+      track: options[:track],
+      track_promote_to: options[:promo],
+      skip_upload_apk: true,
+      skip_upload_metadata: true,
+      skip_upload_changelogs: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true
+    )
+  end
+end
+
+def version_code_from_tag
+  tag = sh('git describe --tags --abbrev=0').strip
+  version = tag.sub(/^v/, '').split('-').first
+
+  major, minor, patch = version.split('.').map(&:to_i)
+
+  (major * 1_000_000) + (minor * 1_000) + patch
 end

@@ -1,6 +1,9 @@
+import java.text.SimpleDateFormat
+import java.util.Date
 import org.gradle.api.Project
+import java.util.Locale
 
-fun Project.getVersionCode(versionName: String?): Int {
+fun getVersionCode(versionName: String?): Int {
     val version = versionName?.removePrefix("v")     // Allow vx.y.z
         ?.substringBefore('-')  // Allow -alpha | -beta | -rc
         ?: error("versionName is not set")
@@ -11,12 +14,10 @@ fun Project.getVersionCode(versionName: String?): Int {
     val minor = parts[1].toInt() * 1_000
     val patch = parts[2].toInt()
 
-    println("Called: ${ major+minor+patch }")
     return major + minor + patch
 }
 
 fun Project.getTag(): String {
-
     val stdout = java.io.ByteArrayOutputStream()
 
     exec {
@@ -27,10 +28,9 @@ fun Project.getTag(): String {
     return stdout.toString().trim()
 }
 
-fun Project.getCustomVersionName(versionName: String, versionCode: Int): String {
-
+fun getCustomVersionName(versionName: String?, versionCode: Int?): String {
     val appName = "scoreboard"
-    val date = SimpleDateFormat("yyyy-MM-dd").format(Date())
+    val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
 
-    return "${appName}_${date}_v${versionName}-${versionCode}"
+    return "${appName}_${date}_${versionName}-${versionCode}"
 }

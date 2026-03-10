@@ -9,14 +9,27 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.bgbrlk.scoreboardbrlk.R
 import com.bgbrlk.scoreboardbrlk.ui.MainActivity
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import tools.fastlane.screengrab.Screengrab
+import tools.fastlane.screengrab.UiAutomatorScreenshotStrategy
+import tools.fastlane.screengrab.locale.LocaleTestRule
+import java.util.Locale
 
 @RunWith(AndroidJUnit4::class)
 class ScoreFragmentTest {
+    @Rule @JvmField
+    val localeTestRule = LocaleTestRule()
+
     @get:Rule
     val activityRule = ActivityScenarioRule(MainActivity::class.java)
+
+    @Before
+    fun setup() {
+        Screengrab.setDefaultScreenshotStrategy(UiAutomatorScreenshotStrategy())
+    }
 
     @Test
     fun textViewCounterTeam1_incrementsTeam1Score_whenClicked() {
@@ -28,6 +41,9 @@ class ScoreFragmentTest {
                 .perform(click())
         }
 
+        println("Locale: " + Locale.getDefault())
+        Screengrab.screenshot("main_screen_score")
+
         onView(withId(R.id.textview_counter_team1))
             .check(matches(withText("5")))
     }
@@ -35,6 +51,7 @@ class ScoreFragmentTest {
     @Test
     fun scoreAreaTeam1_incrementsTeam1Score_whenClicked() {
         val scoreTeam1Area = onView(withId(R.id.view_left_half))
+        val scoreTeam2Area = onView(withId(R.id.view_right_half)) // Unused but kept for structure
         val scoreTeam1TextView = onView(withId(R.id.textview_counter_team1))
 
         scoreTeam1TextView.check(matches(withText("0")))
@@ -55,7 +72,8 @@ class ScoreFragmentTest {
             scoreTeam1TextView.perform(click())
         }
 
-        onView(withText("NEW GAME")).perform(click())
+        Screengrab.screenshot("new_game")
+        onView(withText(R.string.new_game)).perform(click())
 
         scoreTeam1TextView.check(matches(withText("0")))
         scoreTeam2TextView.check(matches(withText("0")))
