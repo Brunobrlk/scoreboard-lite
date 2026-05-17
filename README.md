@@ -45,26 +45,11 @@ Scoreboard Android App using kotlin + MVVM, Material3, Data Binding, Live Data, 
 
 ## Download
 
-Get the app from the following stores:
+Get **Scoreboard Lite** from your preferred Android store.
 
-<a href="https://play.google.com/store/apps/details?id=com.bgbrlk.scoreboardbrlk">
-    <img alt="Get it on Google Play" src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" height="80">
-</a>
-<a href="https://www.amazon.com/gp/product/B0DVB4YTCN">
-    <img alt="Download on the Amazon Appstore" src="https://images-na.ssl-images-amazon.com/images/G/01/mobile-apps/devportal2/res/images/amazon-appstore-badge-english-black.png" height="80">
-</a>
-<a href="https://scoreboard-lite.br.uptodown.com/android">
-    <img alt="Get it on Uptodown" src="https://stc.utdstc.com/img/mediakit/download-gio-big-b.png" height="80">
-</a>
-<a href="https://scoreboard-lite.en.aptoide.com/app">
-    <img alt="Get it on Aptoide" src="https://pt.aptoide.com/company/static/images/brand-assets/Aptoide_badge_black.svg" height="80">
-</a>
-<a href="https://appgallery.huawei.com/app/C113408865">
-    <img alt="Get it on Huawei AppGallery" src="https://hellopaisa.co.za/hellopaisa-2021/wp-content/uploads/2021/06/huawei-Badge-Black.png" height="80">
-</a>
-<a href="https://apkpure.com/p/com.bgbrlk.scoreboardbrlk">
-    <img alt="Get it on APKPure" src="https://apkpure.com/favicon.ico" height="80">
-</a>
+| Google Play | Amazon | Huawei | Uptodown | Aptoide | APKPure |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| <a href="https://play.google.com/store/apps/details?id=com.bgbrlk.scoreboardbrlk"><img alt="Get it on Google Play" src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" height="40"></a> | <a href="https://www.amazon.com/gp/product/B0DVB4YTCN"><img alt="Download on the Amazon Appstore" src="https://images-na.ssl-images-amazon.com/images/G/01/mobile-apps/devportal2/res/images/amazon-appstore-badge-english-black.png" height="40"></a> | <a href="https://appgallery.huawei.com/app/C113408865"><img alt="Get it on Huawei AppGallery" src="https://hellopaisa.co.za/hellopaisa-2021/wp-content/uploads/2021/06/huawei-Badge-Black.png" height="40"></a> | <a href="https://scoreboard-lite.br.uptodown.com/android"><img alt="Get it on Uptodown" src="https://stc.utdstc.com/img/mediakit/download-gio-big-b.png" height="40"></a> | <a href="https://scoreboard-lite.en.aptoide.com/app"><img alt="Get it on Aptoide" src="https://pt.aptoide.com/company/static/images/brand-assets/Aptoide_badge_black.svg" height="40"></a> | <a href="https://apkpure.com/p/com.bgbrlk.scoreboardbrlk"><img alt="Get it on APKPure" src="https://static.apkpure.com/www/static/imgs/logo_new.png" height="40"></a> |
 
 ## License
 
