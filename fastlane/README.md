@@ -95,6 +95,14 @@ Create GitHub release
 
 Upload to Play Store - Internal
 
+### android chlog
+
+```sh
+[bundle exec] fastlane android chlog
+```
+
+
+
 ### android promote_internal_to_alpha
 
 ```sh
@@ -131,14 +139,6 @@ Upload to Play Store - Internal
 
 ```sh
 [bundle exec] fastlane android promotion
-```
-
-
-
-### android chlog
-
-```sh
-[bundle exec] fastlane android chlog
 ```
 
 

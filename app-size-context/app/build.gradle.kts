@@ -13,12 +13,12 @@ plugins {
 
 android {
     namespace = "com.bgbrlk.scoreboardbrlk"
-    compileSdk = 36
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.bgbrlk.scoreboardbrlk"
         minSdk = 26
-        targetSdk = 36
+        targetSdk = 35
         versionName = getTag()
         versionCode = getVersionCode(versionName)
         archivesName = getCustomVersionName(versionName, versionCode)
@@ -117,6 +117,7 @@ dependencies {
 
     // Dagger Hilt
     implementation(libs.hilt.android)
+    implementation(libs.androidx.fragment.testing)
     kapt(libs.hilt.android.compiler)
 
     // Testing
@@ -124,7 +125,6 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.androidx.core.testing)
 
-    androidTestImplementation(libs.androidx.fragment.testing)
     androidTestImplementation(libs.androidx.rules)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
